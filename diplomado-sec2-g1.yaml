@@ -24,6 +24,14 @@ spec:
           name: multistage
           ports:
           - containerPort: 8081
+          readinessProbe:
+            httpGet:
+              port: 8081
+              path: /actuator/health/readiness
+          livenessProbe:
+            httpGet:
+              port: 8081
+              path: /actuator/health/liveness
           resources: {}
 status: {}
 ---
@@ -52,3 +60,21 @@ spec:
   minReplicas: 2
   maxReplicas: 4
   targetCPUUtilizationPercentage: 50
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sprigboot-g1-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+        paths:
+          - path: /rest/mscovid
+            pathType: Prefix
+            backend:
+              service:
+                name: diplomado-sec2-g1-svc
+                port:
+                  number: 81
