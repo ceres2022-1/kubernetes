@@ -11,6 +11,6 @@ Nueva dependencia
 
 Y luego en el properties
 
-`management.endpoint.health.probes.enabled=true
-management.health.livenessState.enabled=true
-management.health.readinessState.enabled=true`
+* management.endpoint.health.probes.enabled=true
+* management.health.livenessState.enabled=true
+* management.health.readinessState.enabled=tru
